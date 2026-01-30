@@ -19,6 +19,8 @@ function Login() {
       const data = await res.json();
       if (res.ok && data.token) {
         localStorage.setItem('token', data.token);
+        // Dispatch custom event to notify App component of auth change
+        window.dispatchEvent(new CustomEvent('authChange'));
         setTimeout(() => navigate('/todos'), 100);
       } else {
         setError('Kullanıcı adı veya şifre hatalı!');
